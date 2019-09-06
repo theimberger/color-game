@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Tile v-bind:color='color' />
+    <Tile v-for='n in 10' v-bind:style='colorStyle' v-bind:key=n />
   </div>
 </template>
 
@@ -16,8 +16,14 @@ export default {
     score: Number,
   },
   data: () => {
+    const color = []
+    for(let i = 0; i < 3; i += 1) {
+      color.push(15 + Math.floor(Math.random() * 200))
+    }
     return {
-      color: 'hello'
+      colorStyle: {
+        background: `rgb(${color.join(', ')})`
+      },
     }
   },
 }

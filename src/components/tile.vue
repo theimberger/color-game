@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class='tile'>
   </div>
 </template>
 
@@ -10,5 +10,9 @@ export default {
 </script>
 
 <style scoped>
-
+.tile {
+  display: block;
+  height: 50px;
+  width: 50px;
+}
 </style>
