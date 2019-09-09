@@ -1,7 +1,12 @@
 <template>
   <div class='game'>
     <div class='board'>
-      <div class='tile' v-for='n in tileCount' v-bind:style='colorStyle' v-bind:key=n />
+      <div
+        class='tile' v-for='n in tileCount'
+        v-bind:style='[(n === correctTile) ? lightColor : colorStyle]'
+        v-bind:key=n
+        v-on:click='check(n === correctTile)'
+      />
     </div>
   </div>
 </template>
@@ -14,9 +19,19 @@ export default {
   props: {
     score: Number,
   },
+  methods: {
+    check: function(correct) {
+      if (correct) {
+        this.$emit('update-score', this.score + 1)
+      } else {
+
+      }
+    }
+  },
   data: function() {
     const rowLength = (Math.floor(this.score ** .5) + 2)
-    const factor = rowLength + 5
+    let factor =  60 - (this.score * 2)
+    if (factor < 1) factor = 1
     const tileCount = rowLength ** 2
 
     const color = []
@@ -36,7 +51,9 @@ export default {
         width: `${tileWidth}px`,
       },
       lightColor: {
-        background: `rgb(${lighter.join(', ')})`
+        background: `rgb(${lighter.join(', ')})`,
+        height: `${tileWidth}px`,
+        width: `${tileWidth}px`,
       },
       tileCount,
       correctTile,
@@ -69,5 +86,6 @@ export default {
     margin: 3px;
     border-radius: 10px;
     flex-shrink: 0;
+    cursor: pointer;
   }
 </style>

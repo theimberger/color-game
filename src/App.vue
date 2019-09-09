@@ -1,6 +1,7 @@
 <template>
   <div id="app">
-    <Game v-bind:score='score' />
+    <Game v-bind:score='score' @update-score='updateScore' :key='score' />
+    <Score v-bind:score='score' />
   </div>
 </template>
 
@@ -12,7 +13,13 @@ export default {
   components: {
     Game
   },
-  data: () => {
+  methods: {
+    updateScore: function(score) {
+      console.log(score)
+      this.$set(this, 'score', score)
+    },
+  },
+  data: function() {
     return {
       score: 0,
     }
